@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Songbook">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADM0lEQVR4nO3cUU4bMRSGUVN1N3QfVOp2qdSFdEF9AAXk8oeQTMbX43Ne4WEkf7nM2GQenp8eG3zk2+gLoC5xEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIi+j74AWmvt15+/6Ue/f/7Y80reMzmITI7BzsyM4cSxt8o1dMRxdxPV0BHH9uatoSOODRymho44rnHUGjriuMgiNXTE8bE1a+iI45Ua/rduHGr41EJxqOGrnK0QiYNIHETiIBIHkTiIxEEkjvEG/pfoeQttgtVRtoaOOPYwSw0dcdzFpDV0xLGNY9TQEceVDllDRxyXWqGGjjiiBWvoiOONGjriaE0WgR1SInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeRryZs79MXns7yTQhxbObyl+CefrN4JeK41S0vRi7+UmX3HDcpvro3MjmudOwsXpgc11ihjCaOKyxSRhPHV61TRhPHlyxVRhMHZ4jjUquNjSYOzph1n2Pn84sFx0abLo7jnV9UNkccBz6/qGyCew6rO0rpySGLsepODmUMVzQOZVRQMY6CZYx65Bn7qFUujoJlLKtcHGXt/yEevkNTKw5jo5RacRS350d5+NhopeKYYmzss2YVymil4pjFvVeuSBlNHNe53/rVKaMV3z6v7GUVN/xTWCqLFybHTbZa0YJlNJPjdqd1vWKK1GziRBybubyS4k2cPDw/PY6+hjdDnmZnWar9uecgqhXHgucXldWKg1LKxbHa+UVl5eJoi51fVFYxjrbS+UVlReNoy5xfVFZrn+NDxz6/qKzu5Dg59vlFZRNMjveOd35R2WRxnBzm/KKyWeNgBxPcczCKOIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA6if6Ialn3w6tVcAAAAAElFTkSuQmCC">
+<title>Songbook</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#faf8f5;--card:#fff;--tx:#1d1b19;--mu:#6e6a64;--ac:#b4472b;--acf:#fff;--ln:#e5e0d9;--chip:#efe9e1;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171513;--card:#211e1b;--tx:#f1ece6;--mu:#a29c93;--ac:#e8845f;--acf:#1a0e08;--ln:#37322d;--chip:#2c2824;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171513;--card:#211e1b;--tx:#f1ece6;--mu:#a29c93;--ac:#e8845f;--acf:#1a0e08;--ln:#37322d;--chip:#2c2824;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:90px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:12px 14px 8px;z-index:5;border-bottom:1px solid var(--ln)}
+h1{font:700 22px Georgia,serif;margin:0 0 8px;display:flex;justify-content:space-between;align-items:baseline}
+h1 small{font:13px system-ui;color:var(--mu)}
+input,textarea{width:100%;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--card);color:var(--tx);font:inherit}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px}
+.chip{flex:none;border:0;background:var(--chip);color:var(--tx);padding:7px 12px;border-radius:99px;font:inherit;font-size:14px}
+.chip.on{background:var(--ac);color:var(--acf)}
+.row{display:block;width:100%;text-align:left;background:var(--card);border:0;border-bottom:1px solid var(--ln);padding:12px 14px;color:var(--tx);font:inherit}
+.t{font-weight:600}.a{color:var(--mu);font-size:14px}
+.tags{margin-top:4px;display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:12px;background:var(--chip);padding:2px 8px;border-radius:99px}
+.tag.none{color:var(--mu);font-style:italic;background:none;padding-left:0}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ac);color:var(--acf);border:0;border-radius:99px;padding:14px 20px;font:600 16px system-ui;box-shadow:0 4px 14px #0004}
+.sheet{position:fixed;inset:0;background:#0006;display:none;align-items:flex-end;z-index:10}
+.sheet.show{display:flex}
+.panel{background:var(--bg);width:100%;max-height:85%;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+.panel h2{margin:0 0 4px;font:700 18px Georgia,serif}
+.btn{border:0;background:var(--ac);color:var(--acf);padding:11px 16px;border-radius:10px;font:600 15px system-ui;text-decoration:none;display:inline-block}
+.btn.g{background:var(--chip);color:var(--tx)}.btn.d{background:none;color:#c0392b}
+.opt{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ln)}
+.opt input[type=checkbox]{width:22px;height:22px;flex:none}
+.opt input[type=text]{flex:1}
+.acts{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.empty{text-align:center;color:var(--mu);padding:40px 20px}
+.k{display:inline-block;margin-left:6px;font:700 12px system-ui;background:var(--ac);color:var(--acf);padding:1px 7px;border-radius:6px;vertical-align:1px}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+.bn{font-size:12px;color:var(--ac);margin:-4px 0 6px;font-weight:600}
+.ro .fab{display:none}
+#rd{position:fixed;inset:0;z-index:20;background:#fff;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}#rd[hidden]{display:none}
+.rbar{display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--bg);border-bottom:1px solid var(--ln)}.rbar b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--tx)}
+.sp{display:flex;align-items:center;gap:4px;color:var(--tx)}.sp i{min-width:28px;text-align:center;font-style:normal;font-size:13px}
+#rbody{flex:1;overflow:auto;background:#fff;color:#222}.dlr{display:flex;gap:8px;align-items:center;margin:6px 0 2px}
+.rb2{flex-wrap:wrap;padding:6px 10px}.rb2 button[hidden],.sp[hidden]{display:none}
+.cl{padding:2px 12px}.cw{display:inline-block;vertical-align:top;margin:0 .45em .3em 0;padding:1px 3px;border-radius:5px}.cw.on{background:#ffe3d6}
+.ct{display:block;font:600 19px/1.25 Georgia,serif;color:#222}.cc{display:block;min-height:19px;font:700 15px/1.25 ui-monospace,Menlo,monospace;color:#b4472b}
+#pal{flex-wrap:wrap;border-top:1px solid var(--ln);border-bottom:0;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}#pal:not([hidden]){display:flex}#pal input{width:70px;padding:7px}
+#txm{position:absolute;inset:0;background:var(--bg);z-index:3;padding:12px;display:none;flex-direction:column;gap:8px;color:var(--tx)}#txm:not([hidden]){display:flex}#txm textarea{flex:1;font:15px/1.5 ui-monospace,Menlo,monospace}
+</style></head><body>
+<header>
+ <h1>Songbook <small id="count"></small></h1>
+ <div class="bn" id="bn" hidden></div>
+ <div class="dlr"><button class="chip" id="dl">⬇ Save all offline</button><span id="dlst" class="a"></span></div>
+ <input id="q" type="search" placeholder="Search songs or artists">
+ <div class="chips" id="chips"></div>
+</header>
+<main id="list"></main>
+<button class="fab" id="add">+ Add song</button>
+<div id="rd" hidden><div class="rbar"><button id="r_x" class="chip">✕</button><b id="r_t"></b><span class="sp"><button id="r_m" class="chip">−</button><i id="r_s"></i><button id="r_a" class="chip">+</button></span><button id="r_p" class="chip on">▶</button></div><div class="rbar rb2"><button id="r_c" class="chip">Chart</button><button id="r_e" class="chip" hidden>Edit</button><button id="r_tx" class="chip" hidden>Text</button><button id="r_im" class="chip" hidden>Import from PDF</button><span class="sp" id="tpw" hidden><button id="r_dn" class="chip">♭</button><i id="r_t2">0</i><button id="r_up" class="chip">♯</button></span></div>
+<div id="rbody"></div><div id="pal" class="rbar" hidden></div>
+<div id="txm" hidden><div class="a">Type [Am] before a word to give it a chord. Blank line = gap between verses.</div><textarea id="txa"></textarea><div class="acts"><button class="btn" id="tx_ok">Save</button><button class="btn g" id="tx_no">Cancel</button></div></div></div>
+<div class="sheet" id="sheet"><div class="panel" id="panel"></div></div>
+
+<script>
+const SEED=`The Angels|No Secrets|1RJGEIK8UvWylRJ814eBl-tUCaf0lKuWT
+The Angels|After The Rain|1DbRA1hCIb3_JY0kJRPMhAW5P1j7cILGO
+Post Malone|Chemical|1GFRpjnOAEQse0p7czijK8u2P1ISjQ80I
+Journey|Don't Stop Believing|17GzOWcz3KT00CocHG6MZOS-6ytbWRexf
+Avicii|Wake Me Up|1B_NJlMxTYKXYui5hyYfK84UHgr4VkPBF
+|Stumblin' In|1N4z9tl9MjfaOEPUIFA-VljWqmqhRGwTe
+Ella Langley|Choosin' Texas|1ch2NOOPNR0egI539hPxPVP8vn_7leZ_V
+Stella Lefty|Boston|1rIU1dOXDxMiGqMfSBuhIQzaiglfxaL5a
+Kenny Rogers|Coward of the County|0B2YsgGCjTTabT0hsNC1pdnlkRzQ
+|The Wellerman|1Zs7qWVU4n2V_8S5cpFtrbcbg8BAiWe6J
+Foo Fighters|My Hero|1M1d5kV66RBFAXHHhg4jdZqa-wWLxptjt
+Vance Joy|Riptide|1i-ciByqXWPckcqGIXRyM8dL65WWjoP6n
+Cold Chisel|Shipping Steel|181XaPNr13eGSnDVVJbUDKJBmL6Fn1tMC
+Crowded House|Weather With You|1FDeh4iwRAcKr2FAXYinEJFHPUHQXQfIx
+Dave Dobbyn|Slice of Heaven|14lij9NVfgH49UbZ0k88L8mq3c7bEAfKO
+Benson Boone|Pretty Slowly|1qh2r4y10NvbLP3AyLSnY-6tSTMH9dhHE
+Shaboozey|Good News|1rXCeIi4BmWzwJA6VnM-70xkff7E2M0ul
+UB40|Kingston Town|0B2YsgGCjTTabTEhzZGRFNEJWaDA
+Split Enz|History Never Repeats|0B2YsgGCjTTabUVktZTlrMnJ3RE0
+Red Hot Chili Peppers|Dani California|0B2YsgGCjTTabb1NkVUxMam5pMUk
+The Eagles|One of These Nights|1FQDxBRE2CpTa_rJM2ecTAJVUayGeVXbn
+Garth Brooks|Low Places|1Jv0c0Kxdfp4XPwp5GZdg6zRV6HJULTQP
+INXS|Disappear|1ll4QYCvXLEyATKQ1ZsygYhyhrsmLyRnj
+Imagine Dragons|Counting Stars|0B2YsgGCjTTabRVViaEg3UURtY1U
+John Butler Trio|Zebra|0B2YsgGCjTTabTzZyUGhjQkhxZ2M
+Billy Joel|Still Rock n Roll to Me|0B2YsgGCjTTabRm1FNmlpMDZudkk
+Sam Smith|Not the Only One|0B2YsgGCjTTabb3AweXoybXF0UTQ
+Teddy Swims|The Door|1WGVzfElCX0xByPLOG_07qkQny_qycYO4
+Hot Chocolate|Everyone's a Winner|1UsshxgeVR8MbU-wq1Zld8lyzMTy9I32D
+Taylor Swift|You Belong with Me|1WAZidGbr_BrE6XT1pd6aIotXV73TB24C
+Robbie Williams|Love Supreme|1pNClbcwGKDAJuHGNEw6xHlX4nIHXr3t9
+Six60|Sundown|19yskYVe3q6M1YLe99XvLxlkX6PpdNokT
+Muse|Plug In Baby|1xaUUWmFSQgRtwWWNd30COGLNfQpWBV6h
+Kenny Loggins|Footloose|1tDMwDsTsC7-g8IOmYUlmNg68hSAtOLut
+Dewey Cox|Midget Man|18PUM6v9G1DJR4mdag3FwHxH3wHDWfAuH
+Ed Sheeran|Afterglow|1jpsZzM2AYwDrKI8S9DUD_m3Ht8hBJkqg
+Paul Simon|Diamonds on the Soles of Her Shoes|0B2YsgGCjTTabYWRQcFBCT0J0Z1k
+Ronan Keating|This I Promise You|1DvmS2SZwxhR4fbQrsi9__mPP998Vp66x
+Fleetwood Mac|Rhiannon|0B2YsgGCjTTaba3gwZkFfMTRYbjg
+Hootie & the Blowfish|Let Her Cry|1eqftnBD7fu2pBuwkjaSK8vm_MI04WZtd
+Hootie & the Blowfish|Only Wanna Be with You|1BZfiCjraJvU7p0LOt3HoAncCZBmcDs7z
+Post Malone|Running in Circles|1SRAA7QNx8to4SkpFl-Yp9Fngz2IhaCqn
+Jimmy Barnes|Driving Wheels|1OsW0D2lMaSIUUz8MwKYfbh499sh2XeHF
+Justin Bieber|Love Yourself|0B2YsgGCjTTabSFdrUmdSSlFXeGc
+Swedish House Mafia|Don't You Worry Child|1Lv_lbBF7zytfhL7idGKvO87-xYDnVF2v
+Escape Club|Wild Wild West|1JtLnHDny4T2PnxSc6bnolEn-koQbl08i
+Elton John|Bennie and the Jets|14DkEJUfHN4O6oYbvtcY6Z-oIGi-XyvCY
+Elton John|Yellow Brick Road|14nEa-puU6ALjuXBJvFwDLjIjpJe7aF8n
+Mitch James|21|1bcAmKcyeCQcv2ZN1LwDFvVr1RxUi5VR9
+Miley Cyrus|Jolene|0B2YsgGCjTTabNDdEdktXVVdWZ1E
+Jimmy Buffett|Margaritaville|0B2YsgGCjTTabYy1IRDJTUWRpX1U
+Neil Young|Heart of Gold|0B2YsgGCjTTabNGFfZGlMdWpqSU0
+Hunters & Collectors|Holy Grail|0B2YsgGCjTTabNlgyUllxLVRIYm8
+Glen Campbell|Rhinestone Cowboy|0B2YsgGCjTTabd1FvYWpjVWVLeUE
+Leonard Cohen|Hallelujah|0B2YsgGCjTTabdGowd3d0c2FhRHc
+Eric Clapton|Layla|0B2YsgGCjTTabMDQ4VnlpNng4UTA
+Keith Urban|Somebody Like You|1ovDDynwUiNeeuWmNv-FJzfKwAd12pIxN
+Red Hot Chili Peppers|Californication|0B2YsgGCjTTabWElzeTJFaXRGNXc
+Dan + Shay|Speechless|1Mfs76N3lqqzUNObTbdNPSIjGNBPqLRPd
+John Lennon|Woman|1hdgt7KD2IuCCyUGO_R_e5VoxWrdXXG0A
+Kenny & Donny|Islands in the Stream|1NkR4c1IiTsTdrl5IFhHMbl-x3K6bZY3V
+Dewey Cox|Royal Jelly|14T_1YuozNfhegBQ78rDu6aDAe0FcrmLZ
+Luke Combs|Beautiful Crazy|1OR35h8zPg5AU_1ILhR5_zWk7KcTPgbJR
+Beach Boys|Kokomo|0B2YsgGCjTTabX3hDZ3hEdVBKb2M
+Ed Sheeran|Give Me Love|0B2YsgGCjTTabLWp5UWQzbXlfdTg
+John Lennon|Starting Over|0B2YsgGCjTTabMFhRYlZIWHRwMms
+Dire Straits|Walk of Life|1-HzpmAzpn4SPKyi3Elpk40y3DdL7cql3
+Icehouse|We Can Get Together|1wnTV3nk0suwonasENJdLyGCzlZKuKyjf
+Shaboozey|Tipsy|1a8UdmqPZfBwsBwL3teB-eXsou2whPKE0
+Phil Collins|Another Day in Paradise|0B2YsgGCjTTabRnltQmRsTkZmRVU
+Club Nouveau|Lean on Me|0B2YsgGCjTTabZDlkWUszOHg0cUE
+Bill Withers|Lean on Me|1KAzLpkBck6Jz40j8UqZ9Ag-gbs1TsW6h
+Billy Joel|You May Be Right|1PNLgu2SWyyQyKyCol3lMHtg9LN-D077V
+Walk the Moon|Shut Up and Dance|1AfBGHezei-hqFjFlEj_Dl5Sr2XwkWwGd
+Foster the People|Pumped Up Kicks|0B2YsgGCjTTabOGpCWS1IeHZiTlE
+Daft Punk|Get Lucky|1Z65jAvQxApIYzIszREL8DlLEtE-eEqeO
+Post Malone|I Had Some Help|1TTec432zmkkTnQ974sTGvayPFEA-1Jfv
+Post Malone|Pour Me a Drink|1iVDqq4KrXjdbu3c9IOUM-ZktIXLKC8Zh
+Spinal Tap|Big Bottoms|1tz6Hs66mKvKj5QX5HPxfO1U7IAs8u8GD
+UB40|Red Red Wine|0B2YsgGCjTTabYmJrY3BxbXpKSEU
+Portugal. The Man|Feel It Still|1OIHQhjXf79cS_aJwYuY9Rksizc2UEolg
+The Beatles|Ticket to Ride|0B2YsgGCjTTabalY3dHU3Ml9yTlk
+The Royal Guardsmen|Snoopy's Christmas|0B2YsgGCjTTabemxQUWc0ekJkMG8
+Morgan Wallen|I Had Some Help|1tKVEN9ZHinPWKqlCPoAyW0f6C83ZRn4o
+Elton John|Sorry Seems to Be the Hardest Word|1ZyNSISSFvdV5uJE6cebGYWaRz5slvOCR
+Cat Stevens|Another Saturday Night|0B2YsgGCjTTabQy05VTVrTGRXZnc
+MKTO|Classic|1PA-4F0FlZfwOzk-gBmLgNLakrqkdq5PA
+Bruno Mars|When I Was Your Man|0B2YsgGCjTTabZVZzVXktTzhDVTg
+Mumford & Sons|I Will Wait|1SJiPjeNcq6OX-vC6ARrfU4BX_YPkU_Kv
+Noah Kahan|Stick Season|1oRBHM1u5rSiEblIR4z3APrUrAz3nLap3
+Walker Hayes & Kesha|Applebees|1V9dQbL-8BqrziUaBHJMigDbgsnINSotC
+Blues Brothers|Sweet Home Chicago|1atsuf4taY4xTqDngrx0go8SnbvLT62FH
+Billy Ray Cyrus|Old Town Road|1TYTKKbfD4j0_Z7pKnFZGqkDA3LqE9zk2
+Sad Clown|Pinball Wizard|1lnYc_hWuPOvgTCUvX5D3LFm4uF20w67l
+Travis|Why Does It Always Rain on Me|1FawLi1vOCevEiCpqRJj31ak2kj-lwKAr
+Tom Petty|Into the Great Wide Open|1-JIqXdEdqSHxe3j-UWSqedQo0-DCVAyp
+Counting Crows|Accidentally in Love|1bONCBOE9bw8SSrE0ICuOhWPcKIaZcvHF
+Eric Hutchinson|Rock and Roll|1hvAKDzwTpwzRVL5J8easUJwLCe87qmzY
+Stone Temple Pilots|Crackerman|0B2YsgGCjTTabVFZsdFpST2oxN2c
+INXS|Original Sin|0B2YsgGCjTTabaUdkLVN5S2tBRkU
+Hello Sailor|Blue Lady|0B2YsgGCjTTabaWpXOS15Ym13dUU
+Hello Sailor|Gutter Black|0B2YsgGCjTTabV0N1X1plWHFPejA
+Parson James|Temple|0B2YsgGCjTTabS3BJZ3p3Q2NzRXM
+The Kooks|She Moves in Her Own Way|0B2YsgGCjTTabbmx0QmtGNkF0UVU
+Dave Dobbyn|Whaling|0B2YsgGCjTTabQUhZLU9PUnVEYzA
+Lizzo|About Damn Time|1G-ROS_bonlE2RDAAHQ3544sq6MIYT-sx
+Six60|Enough Is Never Enough|1cAy4N9Oo2ayVl94FZG_lsLJaTzsGSGFH
+Six60|Never Enough|16chBrU8IlZCNUSDJVuCWvuCI6Zu7aE5K
+Six60|That's All She Wrote|158qHDgZwywllhVkWKWcBngd6vewbPSdk
+The Beatles|Here Comes the Sun|1lUOn8Ay5WDi3nTBQYhH5dVjhfOo8lS71
+Bruce Springsteen|Glory Days|1MEbmSKspK7wmzla8eu3W5UDaVlTQOu7-
+Luke Combs|Beer Never Broke My Heart|1YzKb-lgpAxsnma3yjT-3q0QIYSE3wdGH
+Luke Combs|When It Rains It Pours|11xz_1AWYkyGFEBRaO4THi7n7NRZv1pQH
+John Mayer|Waiting on the World to Change|0B2YsgGCjTTabTjhUV1c5MkVGNWM
+John Mayer|Gravity|0B2YsgGCjTTabcU1MSlF6X0FXd0k
+John Mayer|Why Georgia|0B2YsgGCjTTabYzkzckpGY0dQUXM
+John Mayer|Your Body Is a Wonderland|0B2YsgGCjTTabUzMzVDU1WHlHZU0
+Avalanche City|Love Love Love|0B2YsgGCjTTabWUpXYUxtbThuUmM
+Audioslave|Like a Stone|0B2YsgGCjTTabbjhWVmxPeU1VMmc
+Tom Petty|Won't Back Down|0B2YsgGCjTTabNGFQS2dDSnYxdEk
+Tom Petty|Last Dance with Mary Jane|0B2YsgGCjTTabSHU5YmNLc3YwS0E
+Harry Styles|As It Was|1ZR9DWzyVySDPLX_-IgCcp8vzfd0KDXRe
+Harry Styles|Watermelon Sugar|17gty5vm4xoNO2ldl0BTZuGuii22sfU2C
+Harry Styles|Late Night Talking|1stouk_bF4rNyJnyXsmlUuIACLSy1rpq0
+Simon & Garfunkel|Bridge Over Troubled Water|1IknP3_t6oEFl-1ntogpoFrgwLC_T5TlZ
+Elvis Presley|Can't Help Falling in Love|0B2YsgGCjTTaba2JnSDVkTjMyeTQ
+Ed Sheeran|Bad Habits|1V3bAsvGWMGQ75K9bbFER9E4LyJRdeAMB
+Ed Sheeran|Shivers|1-q69jQ7R15V0ZOfPafNGwkb5WVUsZ_12
+Ed Sheeran|Bloodstream|0B2YsgGCjTTabVGxIQlJnMjFETkE
+Ed Sheeran|Tenerife Sea|1znVJoS5d0PwtalFAyQzVW42KPQuwnQVT
+Ed Sheeran|Small Bump|0B2YsgGCjTTabRDB1LXMxQllVcmc
+Ed Sheeran|I Don't Care|1m4P4JrVORPd_pn5FS_HWwGu-nJZ74a1g
+Ed Sheeran|Happier|1BQDXsRLs6uoBRwPvC5VPjS3T6Rdjhl_v
+Ed Sheeran|Castle on the Hill|0B2YsgGCjTTabVkZKTVZCYkIzbWs
+Ed Sheeran|The A Team|0B2YsgGCjTTabalFFSmJYOHpQSHM
+Morgan Wallen|Last Night|1xtHrSTM134LqiraZ3igvb0yiQv4d6LtT
+Zac Brown Band|Life Is Good Today|0B2YsgGCjTTabSjNybC1ONXJsRkU
+Zac Brown Band|Chicken Fried|0B2YsgGCjTTabN1VVLVh5REdyRVk
+Niall Horan|This Town|0B2YsgGCjTTabV09USy1ESURua2c
+Niall Horan|Slow Hands|1Iy0DYZZNlOxg6Hn-vhq4zrXdUsdx8_iS
+Jimmy Barnes|Still on Your Side|0B2YsgGCjTTabYkgtTFJ2Qk05dUE
+Blake Shelton|I'll Name the Dogs|1xig0T5u31gHdUjaXIJfiE_N8D2XrOfr4
+Michael Franti|Sound of Sunshine|0B2YsgGCjTTabMG1XY3pHTUUxZEE
+James Blunt|1973|0B2YsgGCjTTabdTAzcWtWZHFIWFk
+Fool's Garden|Lemon Tree|0B2YsgGCjTTabNkx5dVFaNkhfRkE
+The Wallflowers|One Headlight|0B2YsgGCjTTabQkJUS1FvcVd2eWc
+Mumford & Sons|Little Lion Man|0B2YsgGCjTTabNnN0bzYyNk0tcjQ
+OneRepublic|Counting Stars|0B2YsgGCjTTabZTIzMktISkxzMnM
+Bruno Mars|Count on Me|0B2YsgGCjTTabdlRDNWJGTjBrdXc
+Bruno Mars|Grenade|0B2YsgGCjTTabYXJpVkJHck1TUEk
+Benny Tipene|Make You Mine|1R9c43UELOxBmgtRIHWU09rGvW_kRm-HN
+The Eagles|Peaceful Easy Feeling|0B2YsgGCjTTabcThPT3ZaNWxOZnc
+The Eagles|New Kid in Town|0B2YsgGCjTTabV2lpV2wyWm9ucHM
+The Eagles|Lyin' Eyes|0B2YsgGCjTTabYndRS3F5VHdxT1E
+Justin Timberlake|Can't Stop the Feeling|0B2YsgGCjTTabLUJ3WFRrQnZUenM
+Little River Band|Help Is on Its Way|0B2YsgGCjTTabSWlKUy1xWWxaUGM
+Little River Band|Reminiscing|0B2YsgGCjTTabT0ZibnJDYzdmV0k
+Waylon Jennings|Good Ol' Boys|0B2YsgGCjTTabNHRQWVEtTGU1SjQ
+Train|Marry Me|0B2YsgGCjTTabQTZtc0VHZFJldTQ
+Train|Drive By|0B2YsgGCjTTabNUdnSlpZamV1MHc
+Train|Hey, Soul Sister|0B2YsgGCjTTabZHFlY1JGOGh6WlE
+Pete Murray|Beautiful|0B2YsgGCjTTaba1BPZHVjby1ULUk
+Pete Murray|Opportunity|0B2YsgGCjTTabZ244M2MwVHFvLXc
+Neil Diamond|Forever in Blue Jeans|0B2YsgGCjTTabNEVGS0hvTmpRcjA
+Blur|Country House|0B2YsgGCjTTabZXlCQnB6cGlNeVU
+The Rolling Stones|You Can't Always Get What You Want|0B2YsgGCjTTabak5LOVdTNVVLUEU
+Kings of Leon|Fans|0B2YsgGCjTTabdXJRV09kaTktTzQ
+Kings of Leon|Use Somebody|0B2YsgGCjTTabelptd1E5SzFSSkE
+James|Way Out West|1J8yNZUEiK1iSMpvmB9uO2uxajBou8GeH
+Don McGlashan|Anchor Me|1Wl3RTsldWYhRGtVwgbTL97D0-Qt_PM-o
+Dragon|Are You Old Enough|1vK9zVXRr47hzO7niplFijUhzHay0hEwx
+Dragon|Rain|0B2YsgGCjTTabdnF5WjN0N2lxMG8
+Jimmy Buffett|It's 5 O'Clock Somewhere|1gHNO-3kltnXON6Wy6No7Pfl2EfKSkisn
+The Traveling Wilburys|Handle Me with Care|0B2YsgGCjTTabejhxMlY1NzE3UFE
+The Pogues|Dirty Old Town|0B2YsgGCjTTabaWtkRjNQNndTVDA
+The Pogues|Fairytale of New York|1uFBSlP6-rnG90NMljgUQZuweuyhmHRMJ
+The Police|Message in a Bottle|0B2YsgGCjTTabOXlzdWl6Zm8xTHM
+Chuck Berry|Johnny B. Goode|0B2YsgGCjTTabRDFKS1pPR3NuTjQ
+Shel Silverstein|Put Another Log on the Fire|173wWA2dAQH4m2VRUcArWms411NIAlrI9
+Dire Straits|Sultans of Swing|0B2YsgGCjTTabVzhRQUhxZHFBRkE
+Dire Straits|Money for Nothing|0B2YsgGCjTTabekVhdF9pd1pjdUE
+Flight of the Conchords|Most Beautiful Girl in the Room|0B2YsgGCjTTabWlZZRG1yRVNSQjA
+Cat Stevens|Where Do the Children Play|0B2YsgGCjTTabX09PRWJFdXR5OTg
+Green Day|Holiday|0B2YsgGCjTTabOFJablRCQmxDLWM
+Green Day|Minority|0B2YsgGCjTTabMVduUUZEemdwX1k
+Green Day|Warning|0B2YsgGCjTTabM3FvYjFlMjA2RTg
+Green Day|Know Your Enemy|0B2YsgGCjTTabdlBlZFZDWjcwM00
+Temple of the Dog|Hunger Strike|1G3O6LyWHnUAJWT6woI1I2g6ibqYRtjt_
+Drax Project|Last Night|1210nk2QxA27pNSBEeFGAL0ddf07F_z5A
+David Gray|Babylon|0B2YsgGCjTTabdV9iU0wzTVBzVEU
+Smokie|Alice|0B2YsgGCjTTabZFhQTXcyWkZBQTQ
+Elton John|Rocket Man|1TWJmp4x0W61gnZ10AbBaTZQ_dGIoekOI
+Elton John|Sad Songs|0B2YsgGCjTTabNDFJMi1DSkZWSnc
+Kid Rock|All Summer Long|0B2YsgGCjTTabMjBVRk5GUDUta1U
+Sam Hunt|Body Like a Back Road|1HW9NiPxVy09Znp0jfH-cgDxOUJ6J3m1X
+Bernard Fanning|Wish You Well|0B2YsgGCjTTabRjJIWkJoMXFOZlk
+The Killers|Mr. Brightside|0B2YsgGCjTTabZHplYUhmejBWcTQ
+George Ezra|Blame It on Me|0B2YsgGCjTTabU3ZVekZKYll1NFU
+George Ezra|Budapest|0B2YsgGCjTTabU1JyRjEwM1hLTEU
+Shawn Mendes|Nervous|1Zzg94nGX7AzoPP0vFmeKB9k4ftew_q-a
+Shawn Mendes|There's Nothing Holding Me Back|0B2YsgGCjTTabMVdha0dLeHdDVTQ
+UB40|I'll Be Your Baby Tonight|1w4LJayxW6nDXbIuMCh79XVvZ7a2giie3
+UB40|The Way You Do the Things You Do|0B2YsgGCjTTabanlHTUk2ZzV6RW8
+The Church|Under the Milky Way|1hD0imnHd9XsqzKHNIbzlDsRI3QHBLViM
+Donavon Frankenreiter|Free|1EqMqktHFWPJONbOcGrunFs17pQarWUu8
+|Auld Lang Syne|0B2YsgGCjTTabdlVQNUFETXh4V1k
+|Christmas Medley|0B2YsgGCjTTabakpIT3UxdDJGaVE
+Maroon 5|Memories|1iZhLoi0s-pOxpM2xgGkerD114xC4g6MO
+Maroon 5|Sugar|0B2YsgGCjTTabTFctcmhNak5TVWM
+Maroon 5|Girls Like You|1hg_HJESgYEdtf0-aQDXcZX7F2ABsjf6g
+Maroon 5|Moves Like Jagger|0B2YsgGCjTTabdFFUdGxudy1uWWs
+Maroon 5|She Will Be Loved|0B2YsgGCjTTabUVF3bWxGcXBuNnc
+Tracy Chapman|Talkin' Bout a Revolution|1KUuMIohpPvGxxOVlNIo_DdhGS_RcKJfP
+Tracy Chapman|Fast Car|0B2YsgGCjTTabemp6OXpMbzlTdHc
+Crowded House|Chocolate Cake|1joO1ATrSpSFZCgHRpa-3DgCeR9cBqECB
+Crowded House|Sister Madly|0B2YsgGCjTTabVGlxNlRDVGFrUDg
+Crowded House|Four Seasons in One Day|0B2YsgGCjTTabTlJHZnlVaENKVGc
+Stevie Ray Vaughan|Little Lover Boy|196-igxKmmGxPYswi3Wrqn_mCBmiBTJQj
+King Harvest|Dancing in the Moonlight|0B2YsgGCjTTabdTBiSjhSVjlMRWM
+Neon Trees|Animal|0B2YsgGCjTTabdzRsQ20yYlRjUVk
+Gotye|Somebody That I Used to Know|0B2YsgGCjTTabWkUybXE0bTkzbkE
+James Taylor|How Sweet It Is|0B2YsgGCjTTabbC04ZjIyNzBNa0U
+|Life Is a Highway|0B2YsgGCjTTabSjBkQXZ1dXNDblE
+Simply Red|Something Got Me Started|1u9EOeygDllra7-FnWtEbdQr5pvDLPo_b
+Boomtown Rats|I Don't Like Mondays|1AkGzwWqRgh4-NJSY0eKfTi6B-1288MZg
+DNCE|Cake by the Ocean|0B2YsgGCjTTabUjlnaEY4RXhOa0E
+Queen|You're My Best Friend|191u4wwpfi2U85eN_-XiQnglM94W_dbl1
+Chris Isaak|Wicked Game|0B2YsgGCjTTabWjhzb2Y1NFo4d1k
+Jack Johnson|Bubble Toes|0B2YsgGCjTTabbW80M1E4UDNJa0E
+Jack Johnson|Upside Down|0B2YsgGCjTTabdTNWNGp5ZmdRbmc
+Jack Johnson|Better Together|0B2YsgGCjTTabWkJSSXZrRm9fNnM
+Screaming Jets|Shiver|1utEPtlgCtq37om1cgSSHxGsKulSPZvse
+Fleetwood Mac|Go Your Own Way|1crmjToZw-HBvlG_T1BVxL76iU0SfuCcZ
+Paul Simon|Loves Me Like a Rock|0B2YsgGCjTTabcTZwMW9CYy1yZmc
+The J. Geils Band|Centerfold|0B2YsgGCjTTabeHEtTkRsOEd5Qms
+Van Morrison|Moondance|0B2YsgGCjTTabZFJ6YS1zRnJqWFk
+Van Morrison|Have I Told You Lately|0B2YsgGCjTTabSnlEOFVfU1RKUTA
+Alabama|Hey Baby|0B2YsgGCjTTabNHpIZ3p5NzBVWG8
+Kenny Chesney|Setting the World on Fire|0B2YsgGCjTTabem56WmpmU211NE0
+The Animals|House of the Rising Sun|0B2YsgGCjTTabOW96UnFkY2ZHQTQ
+My Chemical Romance|Teenagers|0B2YsgGCjTTabNzZ4TkRyZUZPcVk
+Rod Stewart|Maggie May|0B2YsgGCjTTabZ1JmdXIybG1QYkE
+Chocolate Starfish|Mountain|0B2YsgGCjTTabSjQ0TzhTVERCLXc
+Toto|Africa|1AOHRCegpNoQtxmraCoGj3bmks2UAp50L
+Bee Gees|To Love Somebody|0B2YsgGCjTTabVWJEckhjdXlTTWM
+Bee Gees|How Deep Is Your Love|0B2YsgGCjTTabZjRWR2g5VmRZRlE
+Status Quo|Rockin' All Over the World|0B2YsgGCjTTabOG1KZmlFdEhSTEE
+Stevie Wonder|Signed, Sealed, Delivered|0B2YsgGCjTTabM1lYcWNQRjRVTlU
+INXS|Mystify|1HoI2ftBgBtH1vkMOckeTe-dPudGx5WsV
+INXS|Pretty Vegas|0B2YsgGCjTTabZVB2LWxJM0daVjA
+Good Charlotte|Dance Floor Anthem|0B2YsgGCjTTabcHJidk1RR0dzSFU
+Michael Jackson|The Way You Make Me Feel|1uous7axiwQsPt6VVQoUNwBefWO7MoM8h
+Nomad|Oh My My|0B2YsgGCjTTabaVB2VFZzbFJlZkk
+Red Hot Chili Peppers|My Friends|0B2YsgGCjTTabN215elFOVV9lbDA
+Chris Stapleton|Tennessee Whiskey|0B2YsgGCjTTabS2NQMEVMVkVPaVE
+Plain White T's|Hey There Delilah|0B2YsgGCjTTabaUtHVUljbXd6WUU
+Taio Cruz|Dynamite|0B2YsgGCjTTabNFphRmdXbXZKVDg
+Billy Idol|White Wedding|0B2YsgGCjTTabb1pNR2d4RmdjNEE
+Oasis|Don't Look Back in Anger|0B2YsgGCjTTabV0FnODdzSzBBaHM
+Old Crow Medicine Show|Wagon Wheel|0B2YsgGCjTTabQ2MwOHJrcTRwZzA
+Fat Freddy's Drop|Wandering Eye|0B2YsgGCjTTabbm9NbXRaN3paUlE
+Sam Smith|Stay with Me|0B2YsgGCjTTabVVlhWmYyODZ6YjQ
+Santana|Smooth|0B2YsgGCjTTabb1RId3BYc0k1eTg
+Rick Springfield|Jessie's Girl|0B2YsgGCjTTabcG5nVTZCQzNWd00
+Marvin Gaye|Sexual Healing|0B2YsgGCjTTabejZKYzBDV0hpMlk
+The Dudes|Be Mine Tonight|0B2YsgGCjTTabNkZxTElHM1hzWk0
+The Doors|People Are Strange|0B2YsgGCjTTabaXVaN3VCVlV1MDQ
+Snow Patrol|Chasing Cars|0B2YsgGCjTTabTWh4dUNCdFBRaDQ
+The Cars|Just What I Needed|0B2YsgGCjTTabM3loWmt1Zmg2Yk0
+Foo Fighters|Everlong|0B2YsgGCjTTabU0Z6RXNOd01Vcmc
+Creedence Clearwater Revival|Looking Out My Back Door|0B2YsgGCjTTabZVJKR09BR0pIeGs
+Creedence Clearwater Revival|Bad Moon Rising|0B2YsgGCjTTabREdhV01YVnAwYTg
+Black Eyed Peas|I Gotta Feeling|0B2YsgGCjTTabT1IzcFE5cTJsT1k
+The Cranberries|Zombie|0B2YsgGCjTTabZ1RYQ0VtVnNtbFk
+Sting|Englishman in New York|0B2YsgGCjTTabRnY4WHFQLW9XRkk
+Split Enz|Message to My Girl|0B2YsgGCjTTabV2JuUk1Rc2FUQ2M
+Seven Mary Three|Cumbersome|0B2YsgGCjTTabOS1Ga0M5dkdXME0
+Lonestar|Amazed|0B2YsgGCjTTabczJaMEUyV1pLNjA
+John Denver|Thank God I'm a Country Boy|0B2YsgGCjTTabWFQ4SnYxenlzSkE`;
+const KEY='songbook-v1';
+let S=null,filter='all',query='',open=null;
+function seed(){return{cats:['Upbeat','Slow / Ballad','Country','Singalong','Rock','NZ / Aus'],
+ songs:SEED.split('\n').map((l,i)=>{const[a,t,f]=l.split('|');return{id:'s'+i,t,a,f,c:[]}}),n:1000}}
+function load(){try{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):seed()}catch(e){S=seed()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}pushData()}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const url=f=>!f?'':/^https?:/.test(f)?f:'https://drive.google.com/file/d/'+f+'/view';
+function render(){
+ const un=S.songs.filter(s=>!s.c.length).length;
+ let h=`<button class="chip ${filter==='all'?'on':''}" data-f="all">All ${S.songs.length}</button>
+ <button class="chip ${filter==='none'?'on':''}" data-f="none">Uncategorised ${un}</button>`;
+ S.cats.forEach(c=>{h+=`<button class="chip ${filter===c?'on':''}" data-f="${esc(c)}">${esc(c)} ${S.songs.filter(s=>s.c.includes(c)).length}</button>`});
+ h+=`<button class="chip" data-f="__m">⚙ Categories</button>`;
+ $('chips').innerHTML=h;
+ const q=query.toLowerCase();
+ const rows=S.songs.filter(s=>(filter==='all'||(filter==='none'?!s.c.length:s.c.includes(filter)))&&(s.t+' '+(s.a||'')).toLowerCase().includes(q))
+  .sort((x,y)=>x.t.localeCompare(y.t));
+ $('count').textContent=rows.length+' shown';pushView();
+ $('list').innerHTML=rows.length?rows.map(s=>`<button class="row" data-s="${s.id}"><div class="t">${esc(s.t)}${s.k?` <span class="k">${esc(s.k)}</span>`:''}</div><div class="a">${esc(s.a||'')}</div>
+  <div class="tags">${s.c.length?s.c.map(c=>`<span class="tag">${esc(c)}</span>`).join(''):'<span class="tag none">uncategorised</span>'}</div></button>`).join(''):'<div class="empty">No songs here yet.</div>';
+}
+function sheet(html,sid){$('panel').innerHTML=html;$('sheet').classList.add('show');shown=sid||null;pushView();
+ if(RO){$('panel').querySelectorAll('input,textarea,button').forEach(e=>e.disabled=true);$('panel').querySelectorAll('a.btn').forEach(e=>e.remove())}
+ const rb=$('panel').querySelector('[data-x=read]');if(rb){rb.disabled=false;rb.onclick=()=>readSong(shown)}}
+function close(){$('sheet').classList.remove('show');shown=null;pushView()}
+function songSheet(id){
+ const s=S.songs.find(x=>x.id===id);open=id;
+ sheet(`<h2>${esc(s.t)}</h2><div class="a">${esc(s.a||'')}</div>
+ <label>Key</label><input data-k value="${esc(s.k)}" placeholder="e.g. G, Am, F#m" autocapitalize="characters">
+ <div class="acts">${s.f?`<button class="btn" data-x="read">Read</button>`:''}<button class="btn g" data-x="edit">Edit</button><button class="btn d" data-x="del">Delete</button></div>
+ ${S.cats.map(c=>`<label class="opt"><input type="checkbox" data-c="${esc(c)}" ${s.c.includes(c)?'checked':''}> ${esc(c)}</label>`).join('')}
+ <div class="acts"><button class="btn g" data-x="close">Done</button></div>`,id);
+}
+function formSheet(s){
+ open=s?s.id:null;
+ sheet(`<h2>${s?'Edit song':'Add song'}</h2>
+ <label>Title</label><input id="f_t" value="${esc(s?.t)}">
+ <label>Artist</label><input id="f_a" value="${esc(s?.a)}">
+ <label>Key</label><input id="f_k" value="${esc(s?.k)}" placeholder="e.g. G, Am, F#m">
+ <label>Google Drive link to PDF (optional)</label><input id="f_f" value="${esc(s?.f&&url(s.f))}" placeholder="Paste share link">
+ <div class="acts"><button class="btn" data-x="save">Save</button><button class="btn g" data-x="close">Cancel</button></div>`);
+}
+function catSheet(){
+ sheet(`<h2>Categories</h2><div class="a">Rename or remove. Songs keep their tags when renamed.</div>
+ ${S.cats.map((c,i)=>`<div class="opt"><input type="text" data-r="${i}" value="${esc(c)}"><button class="btn d" data-d="${i}">✕</button></div>`).join('')}
+ <div class="opt"><input type="text" id="newcat" placeholder="New category"><button class="btn" data-x="addcat">Add</button></div>
+ <label>Backup (copy this text somewhere safe; paste a backup here and tap Restore)</label>
+ <textarea id="bk" rows="4">${esc(JSON.stringify(S))}</textarea>
+ <div class="acts"><button class="btn g" data-x="restore">Restore</button><button class="btn" data-x="close">Done</button></div>`);
+}
+document.addEventListener('click',e=>{if(RO)return;
+ const t=e.target.closest('button,[data-s]');if(!t){if(e.target===$('sheet'))close();return}
+ if(t.dataset.f){if(t.dataset.f==='__m')return catSheet();filter=t.dataset.f;render()}
+ else if(t.dataset.s)songSheet(t.dataset.s);
+ else if(t.id==='add')formSheet();
+ else if(t.dataset.d!==undefined){const c=S.cats[+t.dataset.d];S.cats.splice(+t.dataset.d,1);S.songs.forEach(s=>s.c=s.c.filter(x=>x!==c));if(filter===c)filter='all';save();catSheet();render()}
+ else switch(t.dataset.x){
+  case'close':close();render();break;
+  case'edit':formSheet(S.songs.find(x=>x.id===open));break;
+  case'del':if(t.dataset.sure){{const d=S.songs.find(x=>x.id===open);if(d&&d.f)(S.removed=S.removed||[]).push(d.f)}S.songs=S.songs.filter(x=>x.id!==open);save();close();render()}else{t.dataset.sure=1;t.textContent='Tap again to delete'}break;
+  case'save':{const ti=$('f_t').value.trim();if(!ti)return;let f=$('f_f').value.trim();const m=f.match(/\/d\/([\w-]+)/);if(m)f=m[1];
+   if(open){Object.assign(S.songs.find(x=>x.id===open),{t:ti,a:$('f_a').value.trim(),k:$('f_k').value.trim(),f})}else S.songs.push({id:'s'+(S.n++),t:ti,a:$('f_a').value.trim(),k:$('f_k').value.trim(),f,m:1,c:[]});
+   save();close();render();break}
+  case'addcat':{const v=$('newcat').value.trim();if(v&&!S.cats.includes(v)){S.cats.push(v);save();catSheet();render()}break}
+  case'restore':try{const d=JSON.parse($('bk').value);if(d.cats&&d.songs){S=d;save();close();render()}}catch(_){$('bk').value='Invalid backup text'}break;
+ }
+});
+document.addEventListener('change',e=>{if(RO)return;const t=e.target;
+ if(t.dataset.c!==undefined){const s=S.songs.find(x=>x.id===open);s.c=t.checked?[...s.c,t.dataset.c]:s.c.filter(c=>c!==t.dataset.c);save()}
+ if(t.dataset.k!==undefined){S.songs.find(x=>x.id===open).k=t.value.trim();save()}
+ if(t.dataset.r!==undefined){const i=+t.dataset.r,old=S.cats[i],nw=t.value.trim();if(nw&&!S.cats.includes(nw)){S.cats[i]=nw;S.songs.forEach(s=>s.c=s.c.map(c=>c===old?nw:c));if(filter===old)filter=nw;save();render()}else t.value=old}
+});
+$('q').addEventListener('input',e=>{query=e.target.value;render()});
+let RO=false,ready=false,shown=null,V={},viewT,dataT,lastTs='0',lastView='';
+const gs=google.script.run;
+function pushData(){if(RO||!ready)return;clearTimeout(dataT);dataT=setTimeout(()=>gs.saveState(JSON.stringify(S)),600)}
+function pushView(){if(RO||!ready)return;clearTimeout(viewT);viewT=setTimeout(()=>gs.saveView(JSON.stringify({filter,query,shown:shown||''})),300)}
+function applyView(){filter=V.filter||'all';query=V.query||'';$('q').value=query;render();if(V.shown&&S.songs.find(x=>x.id===V.shown))songSheet(V.shown);else{$('sheet').classList.remove('show')}}
+function mergeSeed(){const bad={'1GVxsolCnsFpcJcQThJFb0LEWnZ-fxFGz':'1GFRpjnOAEQse0p7czijK8u2P1ISjQ80I'};S.songs.forEach(s=>{if(bad[s.f])s.f=bad[s.f]});S.removed=S.removed||[];const have=new Set(S.songs.map(x=>x.f));SEED.split('\n').forEach(l=>{const[a,t,f]=l.split('|');if(f&&!have.has(f)&&!S.removed.includes(f)){have.add(f);S.songs.push({id:'d'+(S.n++),t,a,f,c:[]})}});save()}
+S={cats:[],songs:[],n:0};render();
+const IDB={db:null,ready:null,get(k){return new Promise(r=>{if(!this.db)return r(null);try{const q=this.db.transaction('p').objectStore('p').get(k);q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)}catch(e){r(null)}})},
+ set(k,v){return new Promise(r=>{if(!this.db)return r();try{const t=this.db.transaction('p','readwrite');t.objectStore('p').put(v,k);t.oncomplete=()=>r();t.onerror=()=>r()}catch(e){r()}})}};
+IDB.ready=new Promise(r=>{try{const q=indexedDB.open('songbook',1);q.onupgradeneeded=()=>q.result.createObjectStore('p');q.onsuccess=()=>{IDB.db=q.result;r()};q.onerror=()=>r()}catch(e){r()}});
+async function getPdf(f){await IDB.ready;const c=await IDB.get(f);if(c)return c;const b=await new Promise((ok,no)=>gs.withSuccessHandler(ok).withFailureHandler(no).getPdf(f));await IDB.set(f,b);return b}
+let lib=null,raf=0,playing=false,speed=40,pos=0,lastT=0,curF='';
+async function loadLib(){if(lib)return lib;await new Promise((ok,no)=>{const e=document.createElement('script');e.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';e.onload=ok;e.onerror=no;document.head.appendChild(e)});
+ const w=await(await fetch('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js')).text();
+ pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([w],{type:'text/javascript'}));return lib=pdfjsLib}
+function tick(t){if(!playing)return;if(lastT){pos+=speed*(t-lastT)/1000;$('rbody').scrollTop=pos}lastT=t;raf=requestAnimationFrame(tick)}
+function play(){pos=$('rbody').scrollTop;playing=true;lastT=0;$('r_p').textContent='\u23f8';raf=requestAnimationFrame(tick)}
+function stop(){playing=false;cancelAnimationFrame(raf);$('r_p').textContent='\u25b6'}
+function showSpeed(){$('r_s').textContent=speed;try{localStorage.setItem('spd'+curF,speed)}catch(e){}}
+async function readSong(id,fp){const s=S.songs.find(x=>x.id===id);if(!s||!s.f)return;
+ if(/^https?:/.test(s.f)){window.open(s.f,'_blank');return}
+ curF=s.f;stop();let sp=0;try{sp=+localStorage.getItem('spd'+s.f)}catch(e){}speed=sp||40;
+ $('rd').hidden=false;$('r_t').textContent=s.t;showSpeed();const b=$('rbody');b.scrollTop=0;b.innerHTML='<div class="empty">Loading\u2026</div>';
+ cur=s;tp=0;edit=false;sel=null;impArm=0;mode=(!fp&&s.ch&&s.ch.length)?'chart':'pdf';syncBar();$('pal').hidden=true;if(mode==='chart'){renderChart();return}
+ try{const[L,b64]=await Promise.all([loadLib(),getPdf(s.f)]);const bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  const pdf=await L.getDocument({data:u}).promise;b.innerHTML='';const w=b.clientWidth,dpr=Math.min(devicePixelRatio||1,2);
+  for(let p=1;p<=pdf.numPages;p++){const pg=await pdf.getPage(p),sc=w/pg.getViewport({scale:1}).width,v=pg.getViewport({scale:sc*dpr});
+   const c=document.createElement('canvas');c.width=v.width;c.height=v.height;c.style.cssText='width:'+w+'px;display:block';b.appendChild(c);await pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise}}
+ catch(e){b.innerHTML='<div class="empty">Couldn\u2019t load this song. Check your connection.</div>'}}
+$('r_x').onclick=()=>{stop();$('rd').hidden=true;$('pal').hidden=true;$('txm').hidden=true};
+$('r_p').onclick=()=>playing?stop():play();
+$('r_m').onclick=()=>{speed=Math.max(10,speed-10);showSpeed()};
+$('r_a').onclick=()=>{speed=Math.min(200,speed+10);showSpeed()};
+$('rbody').addEventListener('pointerdown',()=>{if(playing)stop()});
+$('dl').onclick=async()=>{const fs=S.songs.map(x=>x.f).filter(f=>/^[\w-]{20,}$/.test(f||''));await IDB.ready;let n=0,bad=0;
+ for(const f of fs){$('dlst').textContent=(++n)+' / '+fs.length;try{await getPdf(f)}catch(e){bad++}}
+ $('dlst').textContent='Saved '+(fs.length-bad)+' songs'+(bad?' ('+bad+' failed)':'')};
+let cur=null,mode='pdf',edit=false,sel=null,tp=0,impArm=0;
+const SH=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],FL=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+const NI=n=>{const i=SH.indexOf(n);return i<0?FL.indexOf(n):i};
+function keyInfo(k,n){const m=(k||'C').match(/^([A-G][#b]?)(m(?!aj))?/)||[];const r=Math.max(0,NI(m[1]||'C'));return{t:(r+(m[2]?3:0)+(n||0)+240)%12}}
+const flats=n=>[5,10,3,8,1].includes(keyInfo(cur&&cur.k,n).t);
+function tr(c){if(!c||!tp)return c||'';const L=flats(tp)?FL:SH;const f=r=>{const i=NI(r);return i<0?r:L[(i+tp+240)%12]};
+ return c.split(' ').map(p=>p.replace(/^([A-G][#b]?)([^\/]*)(?:\/([A-G][#b]?))?$/,(m,r,x,b)=>f(r)+x+(b?'/'+f(b):''))).join(' ')}
+const CH=/^[A-G][#b]?(?:maj|min|m|M|dim|aug|sus[24]?|add)?\d*(?:sus[24]?|add\d*)?(?:\/[A-G][#b]?)?$/;
+function itemsToChart(pages){const out=[];
+ pages.forEach(items=>{const rows=[];[...items].sort((a,b)=>b.y-a.y||a.x-b.x).forEach(it=>{let r=rows.find(r=>Math.abs(r.y-it.y)<3);if(!r)rows.push(r={y:it.y,t:[]});const re=/\S+/g;let m;while(m=re.exec(it.s))r.t.push({s:m[0],x:it.x+it.w*m.index/Math.max(1,it.s.length)})});
+  rows.sort((a,b)=>b.y-a.y);rows.forEach(r=>r.t.sort((a,b)=>a.x-b.x));
+  const gaps=rows.slice(1).map((r,i)=>rows[i].y-r.y).sort((a,b)=>a-b),sm=gaps[gaps.length>>2]||12;
+  let pend=null,prevY=null;const flush=()=>{if(pend){out.push(pend.t.map(c=>['',c.s]));pend=null}};
+  rows.forEach(r=>{if(prevY!==null&&prevY-r.y>sm*2.3){flush();out.push([])}prevY=r.y;
+   if(r.t.every(t=>CH.test(t.s))){flush();pend=r;return}
+   const ln=r.t.map(t=>[t.s,'']);
+   if(pend){pend.t.forEach(c=>{let bi=0,bd=1e9;r.t.forEach((t,i)=>{const d=Math.abs(t.x-c.x);if(d<bd){bd=d;bi=i}});ln[bi][1]=ln[bi][1]?ln[bi][1]+' '+c.s:c.s});pend=null}
+   out.push(ln)});flush()});
+ return out}
+const toText=ch=>ch.map(l=>l.map(w=>(w[1]?'['+w[1].replace(/ /g,'_')+']':'')+w[0]).join(' ')).join('\n');
+const fromText=t=>t.split('\n').map(l=>l.trim()?l.trim().split(/\s+/).map(w=>{const m=w.match(/^\[([^\]]*)\](.*)$/);return m?[m[2],m[1].replace(/_/g,' ')]:[w,'']}):[]);
+function syncBar(){const c=mode==='chart';$('r_c').textContent=c?'PDF':'Chart';$('r_e').hidden=RO||!c;$('r_e').textContent=edit?'Done':'Edit';$('r_tx').hidden=RO||!c;$('r_im').hidden=RO;$('r_im').textContent='Import from PDF';$('tpw').hidden=!c||edit;$('r_t2').textContent=tp>0?'+'+tp:tp}
+function renderChart(){const b=$('rbody');
+ if(!cur.ch||!cur.ch.length){b.innerHTML='<div class="empty">No chart yet.'+(RO?'':'<br>Tap <b>Import from PDF</b>, or <b>Text</b> to type or paste lyrics with chords.')+'</div>';return}
+ b.innerHTML=cur.ch.map((ln,li)=>ln.length?'<div class="cl">'+ln.map((w,i)=>`<span class="cw${sel&&sel.l===li&&sel.i===i?' on':''}" data-l="${li}" data-i="${i}"><span class="ct">${esc(w[0])||'&nbsp;'}</span><span class="cc">${esc(tr(w[1]))||'&nbsp;'}</span></span>`).join('')+'</div>':'<div style="height:16px"></div>').join('')}
+function showPal(){const p=$('pal');if(!edit||!sel){p.hidden=true;return}const t=keyInfo(cur.k,0).t,L=flats(0)?FL:SH,N=i=>L[(t+i)%12];
+ const cs=[N(0),N(2)+'m',N(4)+'m',N(5),N(7),N(9)+'m',N(7)+'7'];
+ p.innerHTML=cs.map(c=>`<button class="chip" data-c="${c}">${c}</button>`).join('')+'<button class="chip" data-c="">\u2715</button><input id="pc" placeholder="other"><button class="chip" id="pok">OK</button>';p.hidden=false}
+$('pal').addEventListener('click',e=>{const t=e.target.closest('button');if(!t||!sel)return;const c=t.id==='pok'?$('pc').value.trim():t.dataset.c;if(c===undefined)return;cur.ch[sel.l][sel.i][1]=c;save();renderChart()});
+$('rbody').addEventListener('click',e=>{const w=e.target.closest('.cw');if(!edit||!w)return;sel={l:+w.dataset.l,i:+w.dataset.i};renderChart();showPal()});
+$('r_c').onclick=()=>{stop();$('pal').hidden=true;edit=false;sel=null;if(mode==='chart'){readSong(cur.id,1)}else{mode='chart';syncBar();$('rbody').scrollTop=0;renderChart()}};
+$('r_e').onclick=()=>{edit=!edit;sel=null;tp=0;stop();syncBar();renderChart();showPal()};
+$('r_dn').onclick=()=>{tp=Math.max(-11,tp-1);syncBar();renderChart()};
+$('r_up').onclick=()=>{tp=Math.min(11,tp+1);syncBar();renderChart()};
+$('r_tx').onclick=()=>{$('txa').value=toText(cur.ch||[]);$('txm').hidden=false};
+$('tx_no').onclick=()=>{$('txm').hidden=true};
+$('tx_ok').onclick=()=>{cur.ch=fromText($('txa').value);save();$('txm').hidden=true;mode='chart';syncBar();renderChart()};
+$('r_im').onclick=async()=>{if(cur.ch&&cur.ch.length&&!impArm){impArm=1;$('r_im').textContent='Tap again to replace';return}
+ impArm=0;$('r_im').textContent='Importing\u2026';
+ try{const[L,b64]=await Promise.all([loadLib(),getPdf(cur.f)]);const bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  const pdf=await L.getDocument({data:u}).promise,pages=[];
+  for(let p=1;p<=pdf.numPages;p++){const tc=await(await pdf.getPage(p)).getTextContent();pages.push(tc.items.filter(i=>i.str&&i.str.trim()).map(i=>({s:i.str,x:i.transform[4],y:i.transform[5],w:i.width})))}
+  cur.ch=itemsToChart(pages);if(!cur.ch.length)throw 0;save();mode='chart';edit=false;sel=null;stop();syncBar();$('rbody').scrollTop=0;renderChart()}
+ catch(e){$('r_im').textContent='No text found in this PDF'}};
+function note(t){const b=$('bn');b.textContent='\u25cf Live sharing on \u00b7 '+t}
+function syncFolder(){gs.withSuccessHandler(list=>{if(!list||!list.length)return;const ids=new Set(list.map(x=>x.id)),have=new Set(S.songs.map(x=>x.f));let add=0;S.removed=S.removed||[];
+ list.forEach(x=>{if(!have.has(x.id)&&!S.removed.includes(x.id)){const p=x.name.split(/\s+-\s+/);S.songs.push({id:'d'+(S.n++),t:(p.length>1?p.slice(1).join(' - '):p[0]).trim(),a:p.length>1?p[0].trim():'',f:x.id,c:[]});add++}});
+ const keep=S.songs.filter(x=>x.m||!/^[\w-]{20,}$/.test(x.f||'')||ids.has(x.f)),rem=S.songs.length-keep.length;S.songs=keep;
+ if(add||rem){save();render();note('+'+add+' new, '+rem+' removed')}else note('up to date')}).listSongs()}
+function parse(s,d){try{return JSON.parse(s)}catch(e){return d}}
+function poll(){gs.withSuccessHandler(r=>{if(!r)return;let ch=false;
+ if(r.state&&r.ts!==lastTs){lastTs=r.ts;S=parse(r.state,S);ch=true}
+ if(r.view!==lastView){lastView=r.view;V=parse(r.view,{});ch=true}
+ if(ch)applyView()}).getShared(lastTs)}
+gs.withSuccessHandler(r=>{
+ if(r.owner){S=r.state?parse(r.state,seed()):(load(),S);if(!S.songs.length)S=seed();mergeSeed();ready=true;
+  $('bn').textContent='\u25cf Live sharing on';$('bn').hidden=false;render();pushData();pushView();syncFolder()}
+ else{RO=true;document.body.classList.add('ro');$('q').readOnly=true;
+  S=parse(r.state,S);V=parse(r.view,{});lastTs=r.ts;lastView=r.view;
+  $('bn').textContent='\u25cf Following live (view only)';$('bn').hidden=false;applyView();setInterval(poll,3000)}
+}).withFailureHandler(()=>{load();mergeSeed();render()}).getBoot();
+</script></body></html>
